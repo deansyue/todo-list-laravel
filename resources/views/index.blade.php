@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-  <a href="/todos/new" class="btn btn-info mb-3">Create</a>
+  <a href="/todos/create" class="btn btn-info mb-3">Create</a>
   <ul class="list-group">
     @foreach ($todos as $todo)
       <li class="list-group-item">
