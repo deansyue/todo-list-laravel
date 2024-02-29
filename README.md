@@ -28,27 +28,37 @@ git clone https://github.com/deansyue/todo-list-laravel.git
 cd todo-list-laravel
 ```
 
-3. 複製.env並設定相關環境變數
+3. composer安裝套件
+```
+composer install
+```
+
+4. 產生金鑰
+```
+php artisan key:generate
+```
+
+5. 複製.env並設定相關環境變數
 ```
 cp .env.example .env
 ```
 
-4. 建立專案所需資料表
+6. 建立專案所需資料表
 ```
 php artisan migrate
 ```
 
-5. 建立專案所需種子資料
+7. 建立專案所需種子資料
 ```
 php artisan db:seed
 ```
 
-6. 本地啟動伺服器
+8. 本地啟動伺服器
 ```
 php artisan serve
 ```
 
-7. 當終端機(terminal)出現以下文字，代表伺服器已啟動
+9. 當終端機(terminal)出現以下文字，代表伺服器已啟動
 ```
 Starting Laravel development server: http://127.0.0.1:8000
 ```
