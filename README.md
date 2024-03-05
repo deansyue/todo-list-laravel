@@ -33,14 +33,14 @@ cd todo-list-laravel
 composer install
 ```
 
-4. 產生金鑰
-```
-php artisan key:generate
-```
-
-5. 複製.env並設定相關環境變數
+4. 複製.env並設定相關環境變數
 ```
 cp .env.example .env
+```
+
+5. 產生APP金鑰
+```
+php artisan key:generate
 ```
 
 6. 建立專案所需資料表
