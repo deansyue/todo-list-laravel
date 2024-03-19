@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Todo;
 
 class TodosController extends Controller
 {
@@ -14,7 +14,7 @@ class TodosController extends Controller
      */
     public function index()
     {
-        $todos = DB::table('Todos')->get();
+        $todos = Todo::all();
         return view('index', ['todos' => $todos]);
     }
 
@@ -40,7 +40,7 @@ class TodosController extends Controller
             'name' => 'required|string'
         ]);
 
-        DB::table('Todos')->insert($validated);
+        Todo::create($validated);
 
         return redirect('/todos');
     }
@@ -54,7 +54,12 @@ class TodosController extends Controller
     public function show($id)
     {
         $id = (int) $id;
-        $todo = DB::table('Todos')->where('id', $id)->get()->first();
+        $todo = Todo::find($id);
+
+        if (is_null($todo)) {
+            return redirect('/todos')->withErrors('找不到該todo的資料，請重新嘗試!');
+        }
+
         return view('detail', ['todo' => $todo]);
     }
 
@@ -67,13 +72,13 @@ class TodosController extends Controller
     public function edit($id)
     {
         $id = (int) $id;
-        $todo = DB::table('Todos')->where('id', $id)->get()->first();
+        $todo = Todo::find($id);
 
         if (is_null($todo)) {
             return redirect('/todos')->withErrors('找不到該todo的資料，請重新嘗試!');
-        } else {
-            return view('edit', ['todo' => $todo]);
         }
+
+        return view('edit', ['todo' => $todo]);
     }
 
     /**
@@ -92,14 +97,14 @@ class TodosController extends Controller
         $isDone = $request->input('isDone') === 'on' ? true : false;
         $validated['is_done'] = $isDone;
 
-        $todoDataObject = DB::table('Todos')->where('id', $id);
-        $todo = $todoDataObject->get()->first();
+        $todoObject = Todo::where('id', $id);
+        $todo = $todoObject->first();
 
         if (is_null($todo)) {
             return redirect('/todos')->withErrors('找不到該todo的資料，請重新嘗試!');
         }
 
-        $todoDataObject->update($validated);
+        $todoObject->update($validated);
         return redirect("/todos/$id");
     }
 
@@ -113,8 +118,8 @@ class TodosController extends Controller
     {
         $id = (int) $id;
         $errors = [];
-        $todoDataObject = DB::table('Todos')->where('id', $id);
-        $todo = $todoDataObject->get()->first();
+        $todoDataObject = Todo::where('id', $id);
+        $todo = $todoDataObject->first();
 
         if (is_null($todo)) {
             array_push($errors, '找不到該todo的資料，請重新嘗試!');
