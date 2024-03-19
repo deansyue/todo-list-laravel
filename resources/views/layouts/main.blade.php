@@ -17,11 +17,11 @@
   </header>
 
   <main class="container mt-3">
-    @yield('content')
-
     <div class="errorMessage">
       @include('partials.errorMessage')
     </div>
+    
+    @yield('content')
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
