@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Todo;
 
 class TodoSeeder extends Seeder
 {
@@ -14,11 +15,11 @@ class TodoSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::where('email', 'test@mail.com')->first();
         foreach(range(1, 10) as $index => $value) {
-            DB::table('Todos')->insert([
+            Todo::create([
                 'name' => "name-$index",
-                'created_at' => DB::raw('CURRENT_TIMESTAMP'),
-                'updated_at' => DB::raw('CURRENT_TIMESTAMP'),
+                'user_id' => $user->id,
             ]);
         }
 

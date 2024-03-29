@@ -16,4 +16,6 @@ use App\Http\Controllers\TodosController;
 
 Route::redirect('/', '/todos');
 
-Route::resource('/todos', TodosController::class);
+Route::resource('/todos', TodosController::class)->middleware('auth');
+
+require __DIR__.'/auth.php';
